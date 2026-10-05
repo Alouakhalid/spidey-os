@@ -120,6 +120,14 @@
           <button class="btn btn-sm btn-primary" onclick="openModal('modalNewTask')">
             + New Task <kbd style="font-family:var(--font-mono); font-size:0.65rem; opacity:0.8; margin-left:4px;">⌘K</kbd>
           </button>
+          
+          <input type="file" id="importJsonFileInput" style="display:none;" accept=".json" onchange="importJSONBackup(event)" />
+          <button class="btn btn-sm btn-secondary" onclick="exportJSONBackup()" title="Download JSON Backup of all data">
+            💾 Backup
+          </button>
+          <button class="btn btn-sm btn-secondary" onclick="document.getElementById('importJsonFileInput').click()" title="Restore from JSON Backup">
+            📂 Restore
+          </button>
           <button class="btn btn-sm btn-cyan" onclick="exportToNotionMarkdown()" title="Export all state to Notion-ready Markdown">
             📥 Export to Notion
           </button>

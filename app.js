@@ -1099,6 +1099,40 @@ function escapeHtml(str) {
 // ==========================================
 // 10. INITIALIZATION
 // ==========================================
+
+function exportJSONBackup() {
+  AudioFX.playBell();
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(AppState.data, null, 2));
+  const dlAnchorElem = document.createElement('a');
+  dlAnchorElem.setAttribute("href", dataStr);
+  dlAnchorElem.setAttribute("download", `spidey_os_backup_${new Date().toISOString().split('T')[0]}.json`);
+  dlAnchorElem.click();
+  alert("🕷️ Full data backup exported successfully as JSON!");
+}
+
+function importJSONBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (imported && (imported.tasks || imported.prayers)) {
+        AppState.data = { ...DEFAULT_STATE, ...imported };
+        AppState.save();
+        AudioFX.playThwip();
+        alert("🕷️ Backup restored successfully! All tasks and records loaded.");
+      } else {
+        alert("⚠️ Invalid backup file format.");
+      }
+    } catch (err) {
+      alert("⚠️ Error parsing JSON file.");
+    }
+  };
+  reader.readAsText(file);
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   new SpiderWebCanvas("webCanvas");
   Pomodoro.updateDisplay();
