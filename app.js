@@ -8,143 +8,50 @@
 // ==========================================
 const DEFAULT_STATE = {
   profile: {
-    name: "Spider-Dev",
+    name: "User",
     title: "SPIDEY // NEURAL LIFE OS v2.0",
     quote: "With great power comes great productivity. Focus, code, conquer.",
     soundEnabled: true,
     particlesEnabled: true
   },
   lastActiveDate: new Date().toISOString().split('T')[0],
-  tasks: [
-    { id: "t1", title: "Train and evaluate local AI coding assistant model", priority: "P0", tag: "AI/Code", completed: false, date: "Today" },
-    { id: "t2", title: "Complete Algorithms & Data Structures practice set", priority: "P1", tag: "Study", completed: false, date: "Today" },
-    { id: "t3", title: "Record TikTok: 'Top 3 AI tools for Mac developers'", priority: "P1", tag: "Content", completed: false, date: "Today" },
-    { id: "t4", title: "Read 4 pages of Surah Al-Kahf & evening Adhkar", priority: "P0", tag: "Deen", completed: true, date: "Today" },
-    { id: "t5", title: "Optimize Spider-OS UI & fix glassmorphic blur", priority: "P2", tag: "Project", completed: false, date: "Today" },
-    { id: "t6", title: "Script YouTube video: 'From Zero to Hero in Deep Learning'", priority: "P2", tag: "YouTube", completed: false, date: "Tomorrow" }
-  ],
+  tasks: [],
   prayers: {
-    fajr: { name: "Fajr", nameAr: "الفجر", completed: true, time: "05:15 AM", jamaah: true },
-    dhuhr: { name: "Dhuhr", nameAr: "الظهر", completed: true, time: "12:45 PM", jamaah: true },
+    fajr: { name: "Fajr", nameAr: "الفجر", completed: false, time: "05:15 AM", jamaah: true },
+    dhuhr: { name: "Dhuhr", nameAr: "الظهر", completed: false, time: "12:45 PM", jamaah: true },
     asr: { name: "Asr", nameAr: "العصر", completed: false, time: "04:10 PM", jamaah: false },
     maghrib: { name: "Maghrib", nameAr: "المغرب", completed: false, time: "06:40 PM", jamaah: false },
     isha: { name: "Isha", nameAr: "العشاء", completed: false, time: "08:00 PM", jamaah: false }
   },
   spiritual: {
-    quranPage: 184,
+    quranPage: 1,
     quranTotal: 604,
-    currentSurah: "Al-Anfal (الأَنفَال)",
+    currentSurah: "Al-Fatihah (الفَاتِحَة)",
     dailyTargetPages: 4,
-    pagesReadToday: 4,
-    qiyamCompleted: true,
-    qiyamRakaat: 4,
-    qiyamNotes: "Focus on Surah Al-Mulk, sincere Du'a for barakah & knowledge",
-    dhikrCount: 100,
-    prayerStreak: 14
+    pagesReadToday: 0,
+    qiyamCompleted: false,
+    qiyamRakaat: 0,
+    qiyamNotes: "",
+    dhikrCount: 0,
+    prayerStreak: 0
   },
-  contentVideos: [
-    {
-      id: "v1",
-      title: "How I built a Spider-Man HUD Notion OS with AI",
-      platform: "YouTube",
-      stage: "recording",
-      hook: "What if Tony Stark and Miles Morales designed your Notion?",
-      duration: "10-12 mins",
-      tags: ["AI", "Notion", "Coding", "SpiderMan"],
-      notes: "Show terminal setup, custom canvas particles, and daily planner."
-    },
-    {
-      id: "v2",
-      title: "Stop using boring to-do lists in 2026",
-      platform: "TikTok",
-      stage: "editing",
-      hook: "Most developers fail because their workflow looks like 2012.",
-      duration: "60 secs",
-      tags: ["Productivity", "TechTok", "Setup"],
-      notes: "Quick cut transitions, heavy bass beats, fast screen recording."
-    },
-    {
-      id: "v3",
-      title: "Building an Autonomous Agent from Scratch in Python",
-      platform: "YouTube",
-      stage: "scripting",
-      hook: "Agents aren't magic, they are just while-loops with tools.",
-      duration: "15 mins",
-      tags: ["Python", "Agents", "LangChain"],
-      notes: "Include architecture diagram and live coding demo."
-    },
-    {
-      id: "v4",
-      title: "3 Terminal tricks every Mac programmer needs right now",
-      platform: "TikTok",
-      stage: "published",
-      hook: "Your terminal doesn't have to look depressing.",
-      duration: "45 secs",
-      tags: ["MacOS", "Zsh", "Terminal"],
-      notes: "Reached 45k views, great engagement on zsh configs."
-    }
-  ],
+  contentVideos: [],
   study: {
-    todayHoursTarget: 6.0,
-    todayHoursLogged: 3.5,
-    streakDays: 8,
-    subjects: [
-      { id: "s1", name: "AI & Neural Networks", targetHours: 2.5, loggedHours: 2.0, progress: 80 },
-      { id: "s2", name: "Computer Systems & OS", targetHours: 2.0, loggedHours: 1.0, progress: 50 },
-      { id: "s3", name: "Data Structures & Algos", targetHours: 1.5, loggedHours: 0.5, progress: 33 }
-    ],
-    notes: "• Master Backpropagation derivation\n• Review Virtual Memory page tables\n• Solve 2 Dynamic Programming problems daily"
+    todayHoursTarget: 4.0,
+    todayHoursLogged: 0.0,
+    streakDays: 0,
+    subjects: [],
+    notes: ""
   },
-  projects: [
-    {
-      id: "p1",
-      title: "Autonomous Multi-Agent Neural Core",
-      priority: "P0",
-      status: "In Progress",
-      progress: 75,
-      description: "Autonomous reasoning agent architecture equipped with tool-use, self-reflection, and local vector retrieval.",
-      techStack: ["Python", "PyTorch", "FastAPI", "VectorDB"],
-      deadline: "2026-10-30"
-    },
-    {
-      id: "p2",
-      title: "Spider-Vision HUD Interface",
-      priority: "P1",
-      status: "In Progress",
-      progress: 55,
-      description: "Interactive desktop & web HUD inspired by Spider-Man tech with real-time system monitoring and sound FX.",
-      techStack: ["JavaScript", "HTML5 Canvas", "Web Audio", "CSS3"],
-      deadline: "2026-11-15"
-    },
-    {
-      id: "p3",
-      title: "Automated Content Production Pipeline",
-      priority: "P1",
-      status: "Planning",
-      progress: 25,
-      description: "Automated pipeline for converting technical code repositories into short-form TikTok & YouTube scripts.",
-      techStack: ["Node.js", "FFmpeg", "OpenAI API", "Python"],
-      deadline: "2026-11-20"
-    },
-    {
-      id: "p4",
-      title: "Full-Stack Dev Portfolio & Neural Blog",
-      priority: "P2",
-      status: "Review",
-      progress: 90,
-      description: "Ultra-fast Next.js personal hub showcasing AI research papers, creative engineering builds, and live demos.",
-      techStack: ["Next.js", "TailwindCSS", "TypeScript", "Vercel"],
-      deadline: "2026-10-15"
-    }
-  ],
+  projects: [],
   weeklyHistory: [
-    { day: "Mon", tasks: 8, prayers: 5, quran: 4, studyHrs: 5.5, score: 95 },
-    { day: "Tue", tasks: 6, prayers: 5, quran: 4, studyHrs: 4.0, score: 85 },
-    { day: "Wed", tasks: 7, prayers: 4, quran: 4, studyHrs: 6.0, score: 88 },
-    { day: "Thu", tasks: 9, prayers: 5, quran: 6, studyHrs: 5.0, score: 98 },
-    { day: "Fri", tasks: 5, prayers: 5, quran: 8, studyHrs: 3.5, score: 90 },
-    { day: "Sat", tasks: 8, prayers: 5, quran: 4, studyHrs: 7.0, score: 100 },
-    { day: "Sun", tasks: 6, prayers: 5, quran: 4, studyHrs: 4.5, score: 87 }
+    { day: "Mon", tasks: 0, prayers: 0, quran: 0, studyHrs: 0, score: 0 },
+    { day: "Tue", tasks: 0, prayers: 0, quran: 0, studyHrs: 0, score: 0 },
+    { day: "Wed", tasks: 0, prayers: 0, quran: 0, studyHrs: 0, score: 0 },
+    { day: "Thu", tasks: 0, prayers: 0, quran: 0, studyHrs: 0, score: 0 },
+    { day: "Fri", tasks: 0, prayers: 0, quran: 0, studyHrs: 0, score: 0 },
+    { day: "Sat", tasks: 0, prayers: 0, quran: 0, studyHrs: 0, score: 0 },
+    { day: "Sun", tasks: 0, prayers: 0, quran: 0, studyHrs: 0, score: 0 }
   ]
 };
 
@@ -153,7 +60,7 @@ const DEFAULT_STATE = {
 // ==========================================
 class StateManager {
   constructor() {
-    this.storageKey = "SPIDEY_OS_DATA_V1";
+    this.storageKey = "SPIDEY_OS_DATA_REAL_V2"; localStorage.removeItem("SPIDEY_OS_DATA_V1");
     this.data = this.loadState();
     this.checkDailyReset();
   }
@@ -646,6 +553,66 @@ function renderDailyHQ() {
     `;
     container.appendChild(div);
   });
+
+  // Render Projects Pulse
+  const projPulse = document.getElementById("activeProjectsPulse");
+  if (projPulse) {
+    projPulse.innerHTML = "";
+    if (d.projects.length === 0) {
+      projPulse.innerHTML = `
+        <div style="text-align:center; padding: 1.5rem; color: var(--text-dim); font-size:0.8rem;">
+          <div style="font-size:1.5rem; margin-bottom:0.3rem;">🕸️</div>
+          No active projects yet.<br>
+          <button class="btn btn-sm btn-secondary" style="margin-top:0.6rem;" onclick="openModal('modalNewProject')">+ Initialize Project</button>
+        </div>
+      `;
+    } else {
+      d.projects.slice(0, 2).forEach(p => {
+        const pClass = p.priority === "P0" ? "badge-p0" : p.priority === "P1" ? "badge-p1" : "badge-p2";
+        const fill = p.priority === "P0" ? "progress-fill-red" : "progress-fill-cyan";
+        const div = document.createElement("div");
+        div.style.cssText = "background:rgba(255,255,255,0.02); padding:0.75rem; border-radius:8px; border:1px solid var(--border-subtle);";
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+            <span style="font-weight:700; font-size:0.88rem; color:#fff;">${escapeHtml(p.title)}</span>
+            <span class="badge ${pClass}">${p.priority}</span>
+          </div>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.4rem;">${escapeHtml(p.description || "Active venture")}</div>
+          <div class="progress-container"><div class="progress-bar-fill ${fill}" style="width: ${p.progress}%;"></div></div>
+        `;
+        projPulse.appendChild(div);
+      });
+    }
+  }
+
+  // Render Creator Studio Pulse
+  const creatorPulse = document.getElementById("creatorStudioPulse");
+  if (creatorPulse) {
+    creatorPulse.innerHTML = "";
+    if (d.contentVideos.length === 0) {
+      creatorPulse.innerHTML = `
+        <div style="text-align:center; padding: 1.5rem; color: var(--text-dim); font-size:0.8rem;">
+          <div style="font-size:1.5rem; margin-bottom:0.3rem;">🎬</div>
+          No content in pipeline yet.<br>
+          <button class="btn btn-sm btn-secondary" style="margin-top:0.6rem;" onclick="openModal('modalNewVideo')">+ New Video Idea</button>
+        </div>
+      `;
+    } else {
+      d.contentVideos.slice(0, 2).forEach(v => {
+        const isYT = v.platform === "YouTube";
+        const div = document.createElement("div");
+        div.style.cssText = "background:rgba(255,255,255,0.02); padding:0.75rem; border-radius:8px; border:1px solid var(--border-subtle);";
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+            <span style="font-weight:600; font-size:0.85rem; color:#fff;">${escapeHtml(v.title)}</span>
+            <span class="badge" style="background:${isYT ? '#ff000022':'#00f2fe22'}; color:${isYT ? '#ff4d4d':'#00f2fe'}; border:1px solid ${isYT ? '#ff000044':'#00f2fe44'};">${v.platform}</span>
+          </div>
+          <div style="font-size:0.72rem; color:var(--spider-cyan); font-family:var(--font-mono); text-transform:uppercase;">Stage: ${v.stage}</div>
+        `;
+        creatorPulse.appendChild(div);
+      });
+    }
+  }
 }
 
 function renderSpiritualHQ() {
@@ -759,6 +726,16 @@ function renderStudyHub() {
   const subjectsContainer = document.getElementById("studySubjectsList");
   if (subjectsContainer) {
     subjectsContainer.innerHTML = "";
+    if (!d.study.subjects || d.study.subjects.length === 0) {
+      subjectsContainer.innerHTML = `
+        <div style="text-align:center; padding: 2rem 1rem; background:rgba(255,255,255,0.02); border:1px dashed var(--border-subtle); border-radius:12px;">
+          <div style="font-size:2rem; margin-bottom:0.4rem;">📚</div>
+          <div style="font-weight:700; color:#fff; font-size:0.95rem; margin-bottom:0.25rem;">No Study Subjects Yet</div>
+          <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:1rem;">Add subjects you want to study with targets and syllabus tracking.</div>
+          <button class="btn btn-sm btn-cyan" onclick="openModal('modalNewSubject')">+ Add Study Subject</button>
+        </div>
+      `;
+    } else {
     d.study.subjects.forEach(sub => {
       const div = document.createElement("div");
       div.className = "hud-card";
@@ -778,6 +755,7 @@ function renderStudyHub() {
       `;
       subjectsContainer.appendChild(div);
     });
+    }
   }
 
   const studyNotes = document.getElementById("studyNotesDisplay");
@@ -792,6 +770,17 @@ function renderProjectsMatrix() {
   if (!container) return;
 
   container.innerHTML = "";
+  if (!d.projects || d.projects.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align:center; padding: 3.5rem 1.5rem; background:rgba(255,255,255,0.02); border:1px dashed var(--border-subtle); border-radius:14px;">
+        <div style="font-size:2.5rem; margin-bottom:0.5rem;">🕸️</div>
+        <div style="font-weight:700; color:#fff; font-size:1.1rem; margin-bottom:0.35rem;">Projects Matrix Ready</div>
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.25rem;">No active projects recorded. Click below to add your first project.</div>
+        <button class="btn btn-primary" onclick="openModal('modalNewProject')">+ Initialize First Project</button>
+      </div>
+    `;
+    return;
+  }
   d.projects.forEach(proj => {
     const pClass = proj.priority === "P0" ? "badge-p0" : proj.priority === "P1" ? "badge-p1" : "badge-p2";
     const fillClass = proj.priority === "P0" ? "progress-fill-red" : "progress-fill-cyan";
@@ -986,6 +975,70 @@ function deleteProject(projId) {
   AudioFX.playClick();
   AppState.data.projects = AppState.data.projects.filter(p => p.id !== projId);
   AppState.save();
+}
+
+
+function promptSetQuranPage() {
+  const current = AppState.data.spiritual.quranPage;
+  const input = prompt("📖 Enter your current Quran page number (1 to 604):", current);
+  if (input !== null) {
+    const p = parseInt(input, 10);
+    if (!isNaN(p) && p >= 1 && p <= 604) {
+      AppState.data.spiritual.quranPage = p;
+      AudioFX.playThwip();
+      AppState.save();
+    } else {
+      alert("Please enter a valid page number between 1 and 604.");
+    }
+  }
+}
+
+function promptSetSurahName() {
+  const current = AppState.data.spiritual.currentSurah || "Al-Fatihah";
+  const name = prompt("📖 Enter current Surah name:", current);
+  if (name && name.trim()) {
+    AppState.data.spiritual.currentSurah = name.trim();
+    AudioFX.playClick();
+    AppState.save();
+  }
+}
+
+function updateStudyNotes(notesText) {
+  AppState.data.study.notes = notesText;
+  try {
+    localStorage.setItem(AppState.storageKey, JSON.stringify(AppState.data));
+  } catch (e) {}
+}
+
+function submitNewSubject(e) {
+  e.preventDefault();
+  const name = document.getElementById("subInputName").value.trim();
+  const target = parseFloat(document.getElementById("subInputTarget").value) || 2.0;
+
+  if (!name) return;
+
+  if (!AppState.data.study.subjects) AppState.data.study.subjects = [];
+  AppState.data.study.subjects.push({
+    id: "s_" + Date.now(),
+    name,
+    targetHours: target,
+    loggedHours: 0.0,
+    progress: 0
+  });
+
+  document.getElementById("subInputName").value = "";
+  closeModal("modalNewSubject");
+  AudioFX.playThwip();
+  AppState.save();
+}
+
+function resetAllDataPrompt() {
+  if (confirm("⚠️ Are you sure you want to reset all data?\n\nThis will clear all tasks, projects, subjects, and reset prayers to start 100% fresh.")) {
+    AppState.data = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    AppState.save();
+    AudioFX.playBell();
+    alert("🧹 All data cleared! Workspace is completely fresh for your real data.");
+  }
 }
 
 // ==========================================
