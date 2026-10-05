@@ -182,10 +182,60 @@ class StateManager {
   checkDailyReset() {
     const today = new Date().toISOString().split('T')[0];
     if (this.data.lastActiveDate !== today) {
-      // Archive or reset daily prayers and temporary flags
-      this.data.lastActiveDate = today;
-      // Do not wipe all tasks, keep tasks but uncheck daily ones if desired, or keep user state
-      this.save();
+      this.performMidnightReset(today);
+    }
+  }
+
+  performMidnightReset(newDateStr) {
+    console.log("🕷️ [SPIDEY-OS] 12:00 AM Midnight Rollover Initiated:", newDateStr);
+
+    // 1. Reset 5 Daily Prayers for the new day
+    if (this.data.prayers) {
+      Object.keys(this.data.prayers).forEach(k => {
+        this.data.prayers[k].completed = false;
+      });
+    }
+
+    // 2. Reset Spiritual daily goals (Qiyam al-layl and pages read today)
+    if (this.data.spiritual) {
+      this.data.spiritual.qiyamCompleted = false;
+      this.data.spiritual.pagesReadToday = 0;
+    }
+
+    // 3. Reset Deep Work & Study hours for today
+    if (this.data.study) {
+      this.data.study.todayHoursLogged = 0.0;
+      if (Array.isArray(this.data.study.subjects)) {
+        this.data.study.subjects.forEach(s => {
+          s.loggedHours = 0.0;
+          s.progress = 0;
+        });
+      }
+    }
+
+    // 4. Reset Daily & Deen recurring tasks
+    if (Array.isArray(this.data.tasks)) {
+      this.data.tasks.forEach(t => {
+        const tag = (t.tag || "").toLowerCase();
+        if (tag.includes("daily") || tag.includes("deen") || t.date === "Today") {
+          t.completed = false;
+        }
+      });
+    }
+
+    // 5. Update last active date & save
+    this.data.lastActiveDate = newDateStr;
+    this.save();
+
+    // 6. UI & Sound notification
+    if (typeof showToast === "function") {
+      showToast(
+        "🌙 12:00 AM MIDNIGHT PROTOCOL",
+        "New day started! The 5 prayers, daily habits, and study counters have reset automatically for a fresh start."
+      );
+    }
+    if (typeof AudioFX !== "undefined") {
+      AudioFX.playBell();
     }
   }
 }
@@ -1133,9 +1183,77 @@ function importJSONBackup(event) {
   reader.readAsText(file);
 }
 
+
+// ==========================================
+// 11. LIVE HUD CLOCK & 12:00 AM MIDNIGHT MONITOR
+// ==========================================
+function updateLiveClock() {
+  const now = new Date();
+
+  // Format 12-hour Time (HH:MM:SS AM/PM)
+  let hours = now.getHours();
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 0 becomes 12
+  const formattedTime = `${String(hours).padStart(2, "0")}:${minutes}:${seconds} ${ampm}`;
+
+  // Format Date (e.g. MON, OCT 05)
+  const options = { weekday: "short", month: "short", day: "2-digit" };
+  const formattedDate = now.toLocaleDateString("en-US", options).toUpperCase();
+
+  const timeEl = document.getElementById("hudLiveTime");
+  if (timeEl) timeEl.textContent = formattedTime;
+
+  const dateEl = document.getElementById("hudLiveDate");
+  if (dateEl) dateEl.textContent = formattedDate;
+
+  // Check if 12:00 AM (midnight) has passed
+  const todayDateStr = now.toISOString().split("T")[0];
+  if (AppState.data.lastActiveDate !== todayDateStr) {
+    AppState.performMidnightReset(todayDateStr);
+  }
+}
+
+function showToast(title, message) {
+  const container = document.getElementById("toastContainer");
+  if (!container) return;
+
+  const toast = document.createElement("div");
+  toast.className = "midnight-toast";
+  toast.innerHTML = `
+    <div style="font-size:1.8rem; line-height:1;">🕷️</div>
+    <div style="flex:1;">
+      <div style="font-size:0.88rem; font-weight:700; color:var(--spider-cyan); margin-bottom:0.2rem;">${title}</div>
+      <div style="font-size:0.78rem; color:var(--text-main); line-height:1.4;">${message}</div>
+    </div>
+    <button style="background:transparent; border:none; color:var(--text-dim); font-size:1.1rem; cursor:pointer;" onclick="this.parentElement.remove()">✕</button>
+  `;
+
+  container.appendChild(toast);
+  setTimeout(() => {
+    if (toast.parentElement) toast.remove();
+  }, 7000);
+}
+
+function testMidnightResetPrompt() {
+  if (confirm("🕷️ Test 12:00 AM Midnight Rollover?\n\nThis simulates midnight passing: it automatically unchecks the 5 prayers, resets study hours for the new day, and resets daily tasks.")) {
+    const today = new Date().toISOString().split("T")[0];
+    AppState.performMidnightReset(today);
+  }
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   new SpiderWebCanvas("webCanvas");
   Pomodoro.updateDisplay();
+  // Start Live Clock & 12:00 AM Midnight Engine
+  updateLiveClock();
+  setInterval(updateLiveClock, 1000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) updateLiveClock();
+  });
+
   renderApp();
 
   // Keyboard shortcut Cmd+K or Ctrl+K for quick task
